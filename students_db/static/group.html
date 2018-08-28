@@ -10,6 +10,8 @@
         href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
   <link rel="stylesheet"
         href="./css/main.css">
+  <link rel="stylesheet"
+        href="./css/group.css">      
 </head>
 <body>
 
@@ -36,9 +38,9 @@
     <div class="row" id="sub-header">
       <div class="col-xs-12">
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#">Студенти</a></li>
+          <li role="presentation"><a href="index.html">Студенти</a></li>
           <li role="presentation"><a href="visiting.html">Відвідування</a></li>
-          <li role="presentation"><a href="group.html">Групи</a></li>
+          <li role="presentation" class="active"><a href="#">Групи</a></li>
         </ul>
       </div>
     </div>
@@ -47,31 +49,24 @@
     <!-- Start Content Columns -->
     <div class="row" id="content-columns">
       <div class="col-xs-12" id="content-column">
-
-        <div class="alert alert-warning" role="alert">Студент успішно доданий.</div>
-
-        <h2>База Студентів</h2>
-        <a href="#" class="btn btn-primary">Додати Студента</a>
+        <h2>Групи</h2>
+        <a href="#" class="btn btn-primary">Додати Групу</a>
 
         <!-- Start Students Listing -->
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr>
-              <th><a href="#">#</a></th>
-              <th>Фото</th>
-              <th><a href="#">Прізвище &uarr;</a></th>
-              <th><a href="#">Ім'я</a></th>
-              <th><a href="#">№ Білету</a></th>
+              <th>#</a></th>
+              <th><a href="#">Назва &uarr;</a></th>
+              <th><a href="#">Староста</a></th>
               <th>Дії</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td><img class="img-circle" src="./img/pic3.jpg" height="30" width="30" /></td>
-              <td><a href="#">Забашта</td>
-              <td><a href="#">Олександр</td>
-              <td>2123</td>
+              <td><a href="#">МтМ-21</td>
+              <td><a href="#">Ярмоленко Олег</td>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle"
@@ -88,10 +83,8 @@
             </tr>
             <tr>
               <td>2</td>
-              <td><img class="img-circle" src="./img/pic1.jpg" height="30" width="30" /></td>
-              <td><a href="#">Мезенцев</td>
-              <td><a href="#">Євгеній</td>
-              <td>254</td>
+              <td><a href="#">МтМ-22</td>
+              <td><a href="#">Мезенцев Євгеній</td>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle"
@@ -108,10 +101,8 @@
             </tr>
             <tr>
               <td>3</td>
-              <td><img class="img-circle" src="./img/pic2.jpg" height="30" width="30" /></td>
-              <td><a href="#">Притула</td>
-              <td><a href="#">Сергій</td>
-              <td>5332</td>
+              <td><a href="#">МтМ-23</td>
+              <td><a href="#">Іванишин Сергій</td>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle"
@@ -131,13 +122,10 @@
         <!-- End Students Listing -->
 
         <nav>
-          <ul class="pagination">
+          <ul class="pagination pagination-group">
             <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li class="active"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
             <li><a href="#">&raquo;</a></li>
           </ul>
         </nav>
@@ -149,7 +137,7 @@
     <!-- Start Footer -->
     <div class="row" id="footer">
       <div class="col-xs-12">
-        &copy; 2014 Сервіс Обліку Студентів
+        &copy; 2014 Сервіс Бази Студентів
       </div>
     </div>
     <!-- End Footer -->
