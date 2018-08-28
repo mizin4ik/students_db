@@ -16,7 +16,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
+from students.views import student_list
+from students.views import students_add
+from students.views import students_edit
+from students.views import students_delete
+
+from students.views import groups_list
+from students.views import groups_add
+from students.views import groups_edit
+from students.views import groups_delete
+
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    
+    # Students url
+    re_path(r'^$', student_list, name="home"),
+    re_path(r'^students/add/$', students_add, name='students_add'),
+    re_path(r'^students/(?P<sid>\d+)/edit$', students_edit, name="students_edit"),
+    re_path(r'^students/(?P<sid>\d+)/delete$', students_delete, name="students_delete"),
+
+    # Groups url
+    re_path(r'^groups/$', groups_list, name="groups"),
+    re_path(r'^groups/add/$', groups_add, name='groups_add'),
+    re_path(r'^groups/(?P<gid>\d+)/edit$', groups_edit, name="groups_edit"),
+    re_path(r'^groups/(?P<gid>\d+)/delete$', groups_delete, name="groups_delete"),
+
+    path('admin/', admin.site.urls),   
 ]
