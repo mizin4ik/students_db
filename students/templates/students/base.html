@@ -1,5 +1,7 @@
 {% load static from staticfiles %}
 
+{% url 'groups' as group_url %}
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -11,7 +13,7 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
   <link rel="stylesheet"
-        href=”{{ PORTAL_URL }}{% static ”css/main.css” %}”>
+        href="{% static "css/main.css" %}">
 
   {% block extra_css %}{% endblock extra_css %}
 
@@ -23,9 +25,12 @@
 
     <!-- Start Header -->
     <div class="row" id="header">
+      {% block logo %}
       <div class="col-xs-8">
         <h1>Сервіс Обліку Студентів</h1>
       </div>
+      {% endblock %}
+      {% block groups_menu %}
       <div class="col-xs-4" id="group-selector">
         <strong>Група:</strong>
         <select>
@@ -34,7 +39,9 @@
           <option value="">Мтм-22, Вікторія Кіт</option>
         </select>
       </div>
+      {% endblock %}
     </div>
+
     <!-- End Header -->
 
     <!-- Start subheader -->
@@ -43,7 +50,7 @@
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" {% if request.path == '/' %}class="active"{% endif %}><a href="{% url "home" %}">Студенти</a></li>
           <li role="presentation" {% if '/journal' in request.path %}class="active"{% endif %}><a href="/journal">Відвідування</a></li>
-          <li role="presentation" {% if '/groups' in request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Групи</a></li>
+          <li role="presentation" {% if group_url == request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Групи</a></li>
         </ul>
       </div>
     </div>
@@ -66,11 +73,13 @@
     <!-- End Content Columns -->
 
     <!-- Start Footer -->
+    {% block footer %}
     <div class="row" id="footer">
       <div class="col-xs-12">
         &copy; 2014 Сервіс Обліку Студентів
       </div>
     </div>
+    {% endblock %}
     <!-- End Footer -->
 
   </div>
