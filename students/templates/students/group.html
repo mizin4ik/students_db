@@ -1,152 +1,53 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-  <meta charset="UTF-8"/>
-  <title>Сервіс Обліку Студентів</title>
-  <meta name="description" value="Система Обліку Студентів Навчального Закладу" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "students/base.html" %}
 
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet"
-        href="./css/main.css">
-  <link rel="stylesheet"
-        href="./css/group.css">      
-</head>
-<body>
+{% block meta_title %}Групи{% endblock meta_title %}
 
-  <!-- Start Container -->
-  <div class="container">
+{% block title %}Групи{% endblock title %}
 
-    <!-- Start Header -->
-    <div class="row" id="header">
-      <div class="col-xs-8">
-        <h1>Сервіс Обліку Студентів</h1>
-      </div>
-      <div class="col-xs-4" id="group-selector">
-        <strong>Група:</strong>
-        <select>
-          <option value="">Усі Студенти</option>
-          <option value="">Мтм-21, Вікторія Кіт</option>
-          <option value="">Мтм-22, Вікторія Кіт</option>
-        </select>
-      </div>
-    </div>
-    <!-- End Header -->
+{% block content %}
+<a href="{% url "groups_add" %}" class="btn btn-primary">Додати Групу</a>
 
-    <!-- Start subheader -->
-    <div class="row" id="sub-header">
-      <div class="col-xs-12">
-        <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation"><a href="index.html">Студенти</a></li>
-          <li role="presentation"><a href="visiting.html">Відвідування</a></li>
-          <li role="presentation" class="active"><a href="#">Групи</a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- End subheader -->
-
-    <!-- Start Content Columns -->
-    <div class="row" id="content-columns">
-      <div class="col-xs-12" id="content-column">
-        <h2>Групи</h2>
-        <a href="#" class="btn btn-primary">Додати Групу</a>
-
-        <!-- Start Students Listing -->
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</a></th>
-              <th><a href="#">Назва &uarr;</a></th>
-              <th><a href="#">Староста</a></th>
-              <th>Дії</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td><a href="#">МтМ-21</td>
-              <td><a href="#">Ярмоленко Олег</td>
-              <td>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle"
-                          data-toggle="dropdown">Дія
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Редагувати</a></li>
-                    <li><a href="#">Відвідування</a></li>
-                    <li><a href="#">Видалити</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="#">МтМ-22</td>
-              <td><a href="#">Мезенцев Євгеній</td>
-              <td>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle"
-                          data-toggle="dropdown">Дія
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Редагувати</a></li>
-                    <li><a href="#">Відвідування</a></li>
-                    <li><a href="#">Видалити</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><a href="#">МтМ-23</td>
-              <td><a href="#">Іванишин Сергій</td>
-              <td>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle"
-                          data-toggle="dropdown">Дія
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Редагувати</a></li>
-                    <li><a href="#">Відвідування</a></li>
-                    <li><a href="#">Видалити</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- End Students Listing -->
-
-        <nav>
-          <ul class="pagination pagination-group">
-            <li><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">&raquo;</a></li>
+<!-- Start Groups Listing -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><a href="#">#</a></th>
+      <th><a href="#">Назва &uarr;</a></th>
+      <th><a href="#">Староста</a></th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%  for group in groups %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+        <td><a href="{% url "groups_edit" group.id %}">{{ group.name }}</a></td>
+        <td><a href="{% url "students_edit" group.leader.id %}">{{ group.leader.name }}</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle"
+                  data-toggle="dropdown">Дія
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url "groups_edit" group.id %}">Редагувати</a></li>
+            <li><a href="{% url "groups_delete" group.id %}">Видалити</a></li>
           </ul>
-        </nav>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- End Students Listing -->
 
-      </div>
-    </div>
-    <!-- End Content Columns -->
+<nav>
+  <ul class="pagination pagination-group">
+    <li><a href="#">&laquo;</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">&raquo;</a></li>
+  </ul>
+</nav>
 
-    <!-- Start Footer -->
-    <div class="row" id="footer">
-      <div class="col-xs-12">
-        &copy; 2014 Сервіс Бази Студентів
-      </div>
-    </div>
-    <!-- End Footer -->
-
-  </div>
-  <!-- End Container -->
-
-  <!-- Javascripts Inclusion -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock content %}
