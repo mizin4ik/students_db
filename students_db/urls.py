@@ -26,6 +26,8 @@ from students.views import groups_add
 from students.views import groups_edit
 from students.views import groups_delete
 
+from students.views import visitor_list
+
 
 urlpatterns = [
     # Students url
@@ -39,6 +41,9 @@ urlpatterns = [
     re_path(r'^groups/add/$', groups_add, name='groups_add'),
     re_path(r'^groups/(?P<gid>\d+)/edit$', groups_edit, name="groups_edit"),
     re_path(r'^groups/(?P<gid>\d+)/delete$', groups_delete, name="groups_delete"),
+
+    # Visiting url
+    re_path(r'^visiting/$', visitor_list, name="visiting"),
 
     path('admin/', admin.site.urls),   
 ]
