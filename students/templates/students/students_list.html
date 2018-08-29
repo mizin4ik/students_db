@@ -1,15 +1,17 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8"/>
   <title>Сервіс Обліку Студентів</title>
-  <meta name="description" value="Система Обліку Студентів Навчального Закладу" />
+  <meta name="description" gitvalue="Система Обліку Студентів Навчального Закладу" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
   <link rel="stylesheet"
-        href="./css/main.css">
+        href="{% static "css/main.css" %}">
 </head>
 <body>
 
@@ -66,12 +68,14 @@
             </tr>
           </thead>
           <tbody>
+            {%  for student in students %}
             <tr>
-              <td>1</td>
-              <td><img class="img-circle" src="./img/pic3.jpg" height="30" width="30" /></td>
-              <td><a href="{% url "students_edit" 1 %}">Забашта</td>
-              <td><a href="{% url "students_edit" 1 %}">Олександр</td>
-              <td>2123</td>
+              <td>{{ forloop.counter }}</td>
+              <td><img class="img-circle"
+                       src="{% static student.image %}" height="30" width="30" /></td>
+                <td><a href="{% url "students_edit" student.id %}">{{ student.last_name }}</a></td>
+                <td><a href="{% url "students_edit" student.id %}">{{ student.first_name }}</a></td>
+              <td>{{ student.ticket }}</td>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle"
@@ -79,53 +83,14 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="{% url "students_edit" 1 %}">Редагувати</a></li>
-                    <li><a href="/jornal/1">Відвідування</a></li>
-                    <li><a href="{% url "students_delete" 1 %}">Видалити</a></li>
+                    <li><a href="{% url "students_edit" student.id %}">Редагувати</a></li>
+                    <li><a href="/jornal/{{ student.id }}">Відвідування</a></li>
+                    <li><a href="{% url "students_delete" student.id %}">Видалити</a></li>
                   </ul>
                 </div>
               </td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td><img class="img-circle" src="./img/pic1.jpg" height="30" width="30" /></td>
-              <td><a href="{% url "students_edit" 2 %}">Мезенцев</td>
-              <td><a href="{% url "students_edit" 2 %}">Євгеній</td>
-              <td>254</td>
-              <td>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle"
-                          data-toggle="dropdown">Дія
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="{% url "students_edit" 2 %}">Редагувати</a></li>
-                    <li><a href="/jornal/2">Відвідування</a></li>
-                    <li><a href="{% url "students_delete" 2 %}">Видалити</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><img class="img-circle" src="./img/pic2.jpg" height="30" width="30" /></td>
-              <td><a href="{% url "students_edit" 3 %}">Притула</td>
-              <td><a href="{% url "students_edit" 3 %}">Сергій</td>
-              <td>5332</td>
-              <td>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle"
-                          data-toggle="dropdown">Дія
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="{% url "students_edit" 3 %}">Редагувати</a></li>
-                    <li><a href="/jornal/3">Відвідування</a></li>
-                    <li><a href="{% url "students_delete" 3 %}">Видалити</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
         <!-- End Students Listing -->

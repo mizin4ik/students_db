@@ -112,4 +112,4 @@ venv.bak/
 dmypy.json
 
 # PyCharm
-.idea
+.idea/
