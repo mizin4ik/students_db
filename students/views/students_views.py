@@ -2,34 +2,21 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from ..models import Student
 
 
 # Views for Students
 
 def student_list(request):
-    students = (
-        {
-            'id': 1,
-            'first_name': u'Вікторія',
-            'last_name': u'Кіт',
-            'ticket': 235,
-            'image': 'img/pic1.jpg'
-        },
-        {
-            'id': 2,
-            'first_name': u'Софія',
-            'last_name': u'Нельсон',
-            'ticket': 2351,
-            'image': 'img/pic2.jpg'
-        },
-        {
-            'id': 3,
-             'first_name': u'Клава',
-             'last_name': u'Іванишин',
-             'ticket': 329,
-             'image': 'img/pic3.jpg'
-        }
-    )
+    students = Student.objects.all()
+
+    #try to order students list
+    order_by = request.GET.get('order_by', '')
+    if order_by in ('last_name', 'first_name', 'ticket'):
+        students = students.order_by(order_by)
+        if request.GET.get('reverse', '') == '1':
+            students = students.reverse()
+
     return render(request, 'students/students_list.html', {'students' : students})
 
 
