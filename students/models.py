@@ -7,44 +7,72 @@ class Student(models.Model):
     #Student Model
 
     class Meta(object):
-        verbose_name = u"Студент"
-        verbose_name_plural = u"Студенти"
+        verbose_name = 'Студент'
+        verbose_name_plural = 'Студенти'
 
     first_name = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u"Ім'я")
+        verbose_name='Ім\'я')
 
     last_name = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u"Прізвище")
+        verbose_name='Прізвище')
 
     middle_name = models.CharField(
         max_length=256,
         blank=True,
-        verbose_name=u"По-батькові",
+        verbose_name='По-батькові',
         default='')
 
     birthday = models.DateField(
         blank=False,
-        verbose_name=u'Дата народження',
+        verbose_name='Дата народження',
         null=True)
 
     photo = models.ImageField(
         blank=True,
-        verbose_name=u'Фото',
+        verbose_name='Фото',
         null=True)
 
     ticket = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u'Білет')
+        verbose_name='Білет')
 
     notes = models.TextField(
         blank=True,
         verbose_name=u'Додаткові нотатки')
 
     def __str__(self):
-        return u" % s % s" % (self.first_name, self.last_name)
+        return '{0} {1}'.format(self.first_name, self.last_name)
 
+
+# Group Model
+class Group(models.Model):
+
+    class Meta(object):
+        verbose_name = u'Група'
+        verbose_name_plural = u'Групи'
+
+    title = models.CharField(
+        max_length=256,
+        blank=False,
+        verbose_name=u'Назва')
+
+    leader = models.OneToOneField('Student',
+        verbose_name=u'Староста',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL)
+
+    notes = models.TextField(
+        blank=True,
+        verbose_name=u'Додаткові нотатки')
+
+    def __str__(self):
+        if self.leader:
+            return '{0} {1} {2}'.format(self.title, self.leader.first_name, self.leader.last_name)
+        else:
+            return '{0}'.format(self.title,)
