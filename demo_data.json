@@ -1,0 +1,243 @@
+[
+{
+    "model": "students.student",
+    "pk": 2,
+    "fields": {
+        "first_name": "Sofia",
+        "last_name": "Nelson",
+        "middle_name": "",
+        "birthday": "2018-08-30",
+        "photo": "",
+        "ticket": "911",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 3,
+    "fields": {
+        "first_name": "Viktoriia",
+        "last_name": "Kit",
+        "middle_name": "",
+        "birthday": "2018-07-29",
+        "photo": "DSC_0197.jpg",
+        "ticket": "739",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 4,
+    "fields": {
+        "first_name": "Klava",
+        "last_name": "Ivanushun",
+        "middle_name": "",
+        "birthday": "2018-08-13",
+        "photo": "",
+        "ticket": "890",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 5,
+    "fields": {
+        "first_name": "Sergiy",
+        "last_name": "Prutyla",
+        "middle_name": "",
+        "birthday": "2018-08-01",
+        "photo": "",
+        "ticket": "4",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 6,
+    "fields": {
+        "first_name": "Oleg",
+        "last_name": "Kvas",
+        "middle_name": "",
+        "birthday": "2018-04-01",
+        "photo": "",
+        "ticket": "86",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 7,
+    "fields": {
+        "first_name": "Katia",
+        "last_name": "Klumenko",
+        "middle_name": "",
+        "birthday": "2017-09-20",
+        "photo": "",
+        "ticket": "78",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 8,
+    "fields": {
+        "first_name": "Timur",
+        "last_name": "Desk",
+        "middle_name": "",
+        "birthday": "2018-08-31",
+        "photo": "",
+        "ticket": "854",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 9,
+    "fields": {
+        "first_name": "Ivan",
+        "last_name": "Lopatkin",
+        "middle_name": "",
+        "birthday": "2018-06-18",
+        "photo": "",
+        "ticket": "1",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 10,
+    "fields": {
+        "first_name": "Tania",
+        "last_name": "Luk",
+        "middle_name": "",
+        "birthday": "2018-08-14",
+        "photo": "DSC_0186.jpg",
+        "ticket": "8765",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 11,
+    "fields": {
+        "first_name": "Semen",
+        "last_name": "Tanok",
+        "middle_name": "",
+        "birthday": "2018-08-26",
+        "photo": "",
+        "ticket": "8",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 12,
+    "fields": {
+        "first_name": "Petro",
+        "last_name": "Burak",
+        "middle_name": "",
+        "birthday": "2018-08-04",
+        "photo": "",
+        "ticket": "789",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 13,
+    "fields": {
+        "first_name": "Tonia",
+        "last_name": "Nevmerzuska",
+        "middle_name": "",
+        "birthday": "2018-02-06",
+        "photo": "",
+        "ticket": "19",
+        "notes": "",
+        "student_group": null
+    }
+},
+{
+    "model": "students.student",
+    "pk": 14,
+    "fields": {
+        "first_name": "Olia",
+        "last_name": "Koter",
+        "middle_name": "",
+        "birthday": "2018-08-31",
+        "photo": "",
+        "ticket": "20",
+        "notes": "",
+        "student_group": 3
+    }
+},
+{
+    "model": "students.student",
+    "pk": 15,
+    "fields": {
+        "first_name": "Lesia",
+        "last_name": "Pankiv",
+        "middle_name": "",
+        "birthday": "2018-08-31",
+        "photo": "",
+        "ticket": "8119",
+        "notes": "",
+        "student_group": 2
+    }
+},
+{
+    "model": "students.group",
+    "pk": 2,
+    "fields": {
+        "title": "MTM-21",
+        "leader": 7,
+        "notes": ""
+    }
+},
+{
+    "model": "students.group",
+    "pk": 3,
+    "fields": {
+        "title": "MTM-23",
+        "leader": 3,
+        "notes": ""
+    }
+},
+{
+    "model": "students.group",
+    "pk": 4,
+    "fields": {
+        "title": "MTM-22",
+        "leader": 2,
+        "notes": ""
+    }
+},
+{
+    "model": "students.group",
+    "pk": 5,
+    "fields": {
+        "title": "MTM-24",
+        "leader": 9,
+        "notes": ""
+    }
+},
+{
+    "model": "students.group",
+    "pk": 6,
+    "fields": {
+        "title": "MTM-25",
+        "leader": 8,
+        "notes": ""
+    }
+}
+]

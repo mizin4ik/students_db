@@ -45,6 +45,12 @@ class Student(models.Model):
         blank=True,
         verbose_name=u'Додаткові нотатки')
 
+    student_group = models.ForeignKey('Group',
+        verbose_name='Група',
+        blank=False,
+        null=True,
+        on_delete=models.PROTECT)
+
     def __str__(self):
         return '{0} {1}'.format(self.first_name, self.last_name)
 
@@ -76,3 +82,4 @@ class Group(models.Model):
             return '{0} {1} {2}'.format(self.title, self.leader.first_name, self.leader.last_name)
         else:
             return '{0}'.format(self.title,)
+
