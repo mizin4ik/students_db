@@ -31,7 +31,7 @@ def student_list(request):
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
 
-    return render(request, 'students/students_list.html', {'students' : students})
+    return render(request, 'students/students_list.html', {'students': students})
 
 
 def students_add(request):

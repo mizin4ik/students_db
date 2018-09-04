@@ -19,7 +19,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path
 
-
 from students.views import student_list
 from students.views import students_add
 from students.views import students_edit
@@ -29,6 +28,16 @@ from students.views import groups_list
 from students.views import groups_add
 from students.views import groups_edit
 from students.views import groups_delete
+
+from students.views import exams_list
+from students.views import exams_add
+from students.views import exams_edit
+from students.views import exams_delete
+
+from students.views import results_list
+from students.views import results_add
+from students.views import results_edit
+from students.views import results_delete
 
 from students.views import visitor_list
 
@@ -48,6 +57,18 @@ urlpatterns = [
 
     # Visiting url
     re_path(r'^visiting/$', visitor_list, name="visiting"),
+
+    # Exams url
+    re_path(r'^exams/$', exams_list, name="exams"),
+    re_path(r'^exams/add/$', exams_add, name='exams_add'),
+    re_path(r'^exams/(?P<exe>\d+)/edit$', exams_edit, name="exams_edit"),
+    re_path(r'^exams/(?P<exe>\d+)/delete$', exams_delete, name="exams_delete"),
+
+    # Results url
+    re_path(r'^results/$', results_list, name="results"),
+    re_path(r'^results/add/$', results_add, name='results_add'),
+    re_path(r'^results/(?P<res>\d+)/edit$', results_edit, name="results_edit"),
+    re_path(r'^results/(?P<res>\d+)/delete$', results_delete, name="results_delete"),
 
     path('admin/', admin.site.urls),   
 ]

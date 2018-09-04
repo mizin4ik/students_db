@@ -1,0 +1,68 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Результати{% endblock meta_title %}
+
+{% block title %}Результати іспитів{% endblock title %}
+
+{% block content %}
+<a href="{% url "students_add" %}" class="btn btn-primary">Додати результати</a>
+
+<!-- Start Students Listing -->
+<table class="table">
+  {% with order_by=request.GET.order_by reverse=request.GET.reverse%}
+  <thead>
+    <tr>
+      <th><a href="{% url "results" %}?order_by=id{% if order_by == "id" and reverse != "1" %}&amp;reverse=1{% endif %}">
+          #
+          {% if order_by == "id" and reverse != "1"%} &uarr;
+          {% elif order_by == "id" and reverse == "1"%} &darr;
+          {% endif %}
+          </a>
+      </th>
+      <th>
+          Студент
+      </th>
+      <th>
+          Назва іспиту
+      </th>
+      <th>
+          <a href="{% url "results" %}?order_by=result{% if order_by == "result" and reverse != "1" %}&amp;reverse=1{% endif %}">
+          Результат
+          {% if order_by == "result" and reverse != "1"%} &uarr;
+          {% elif order_by == "result" and reverse == "1"%} &darr;
+          {% endif %}
+          </a>
+      </th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  {% endwith %}
+  <tbody>
+    {%  for result in results %}
+    <tr>
+      <td>{{ result.pk }}</td>
+      <td>{{ result.student }}</td>
+      <td>{{ result.exam.exams_name }}</td>
+      <td>{{ result.result }}</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle"
+                  data-toggle="dropdown">Дія
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url "results_edit" result.pk %}">Редагувати</a></li>
+            <li><a href="{% url "results_delete" result.pk %}">Видалити</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- End Students Listing -->
+{% include './_pagination.html' %}
+
+{% endblock content %}

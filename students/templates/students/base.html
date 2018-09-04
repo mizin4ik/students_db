@@ -2,6 +2,8 @@
 
 {% url 'groups' as group_url %}
 {% url 'visiting' as visitor_url %}
+{% url 'exams' as exams_url %}
+{% url 'results' as results_url %}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -52,6 +54,8 @@
           <li role="presentation" {% if request.path == '/' %}class="active"{% endif %}><a href="{% url "home" %}">Студенти</a></li>
           <li role="presentation" {% if visitor_url == request.path %}class="active"{% endif %}><a href="{% url "visiting" %}">Відвідування</a></li>
           <li role="presentation" {% if group_url == request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Групи</a></li>
+          <li role="presentation" {% if exams_url == request.path %}class="active"{% endif %}><a href="{% url "exams" %}">Іспити</a></li>
+          <li role="presentation" {% if results_url == request.path %}class="active"{% endif %}><a href="{% url "results" %}">Результати іспитів</a></li>
         </ul>
       </div>
     </div>

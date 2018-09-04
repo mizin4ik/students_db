@@ -1,0 +1,82 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Іспити{% endblock meta_title %}
+
+{% block title %}Список іспитів{% endblock title %}
+
+{% block content %}
+<a href="{% url "exams_add" %}" class="btn btn-primary">Додати Іспит</a>
+
+<!-- Start Exams Listing -->
+<table class="table">
+  {% with order_by=request.GET.order_by reverse=request.GET.reverse%}
+  <thead>
+    <tr>
+      <th><a href="{% url "exams" %}?order_by=id{% if order_by == "id" and reverse != "1" %}&amp;reverse=1{% endif %}">
+          #
+          {% if order_by == "id" and reverse != "1"%} &uarr;
+          {% elif order_by == "id" and reverse == "1"%} &darr;
+          {% endif %}
+          </a>
+      </th>
+      <th>
+          <a href="{% url "exams" %}?order_by=exams_name{% if order_by == "exams_name" and reverse != "1" %}&amp;reverse=1{% endif %}">
+          Назва
+          {% if order_by == "exams_name" and reverse != "1"%} &uarr;
+          {% elif order_by == "exams_name" and reverse == "1"%} &darr;
+          {% endif %}
+          </a>
+      </th>
+      <th>
+          <a href="{% url "exams" %}?order_by=exams_date{% if order_by == "exams_date" and reverse != "1" %}&amp;reverse=1{% endif %}">
+          Дата та час проведення
+          {% if order_by == "exams_date" and reverse != "1"%} &uarr;
+          {% elif order_by == "exams_date" and reverse == "1"%} &darr;
+          {% endif %}
+          </a>
+      </th>
+      <th>
+          <a href="{% url "exams" %}?order_by=professor{% if order_by == "professor" and reverse != "1" %}&amp;reverse=1{% endif %}">
+          Викладач
+          {% if order_by == "professor" and reverse != "1"%} &uarr;
+          {% elif order_by == "professor" and reverse == "1"%} &darr;
+          {% endif %}
+          </a>
+      </th>
+      <th>
+          Група
+      </th>
+        <th>Дії</th>
+    </tr>
+  </thead>
+  {% endwith %}
+  <tbody>
+    {%  for exam in exams %}
+    <tr>
+      <td>{{ exam.pk }}</td>
+      <td><a href="{% url "exams_edit" exam.pk %}">{{ exam.exams_name }}</a></td>
+      <td>{{ exam.exams_date }}</td>
+      <td>{{ exam.professor }}</td>
+      <td>{{ exam.group_set.all|join:', ' }}</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle"
+                  data-toggle="dropdown">Дія
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url "exams_edit" exam.pk %}">Редагувати</a></li>
+            <li><a href="{% url "exams_delete" exam.pk %}">Видалити</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- End Exams Listing -->
+{% include './_pagination.html' %}
+
+{% endblock content %}

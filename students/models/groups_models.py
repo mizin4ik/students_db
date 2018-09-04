@@ -1,32 +1,30 @@
-# -*- coding: utf-8 -*-
-
 from django.db import models
 
-# Create your models here.
+
 # Group Model
 class Group(models.Model):
 
     class Meta(object):
-        verbose_name = u'Група'
-        verbose_name_plural = u'Групи'
+        verbose_name = 'Група'
+        verbose_name_plural = 'Групи'
 
     title = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u'Назва')
+        verbose_name='Назва')
 
-    leader = models.OneToOneField('Student',
-        verbose_name=u'Староста',
+    leader = models.OneToOneField(
+        'Student',
+        verbose_name='Староста',
         blank=True,
         null=True,
         on_delete=models.SET_NULL)
 
     notes = models.TextField(
         blank=True,
-        verbose_name=u'Додаткові нотатки')
+        verbose_name='Додаткові нотатки')
+
+    exam = models.ManyToManyField('Exam')
 
     def __str__(self):
-        if self.leader:
-            return '{0} {1} {2}'.format(self.title, self.leader.first_name, self.leader.last_name)
-        else:
-            return '{0}'.format(self.title,)
+        return self.title
