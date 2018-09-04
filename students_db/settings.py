@@ -74,15 +74,7 @@ WSGI_APPLICATION = 'students_db.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'USER': 'students_db_user',
-        'PASSWORD': '75357535',
-        'NAME': 'students_db',
-    }
-}
+DATABASES = {}
 
 
 # Password validation
@@ -125,3 +117,8 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
