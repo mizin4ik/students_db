@@ -64,11 +64,13 @@
     <!-- Start Content Columns -->
     <div class="row" id="content-columns">
         <div class="col-xs-12" id="content-column">
-        {% comment ”Not used alert so far” %}
 
-        <div class="alert alert-warning" role="alert">Студент успішно доданий.</div>
 
-        {% endcomment %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning {{ message.tags }}" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
 
         <h2>{% block title %} {% endblock title %}</h2>
         {% block content %} {% endblock content %}
