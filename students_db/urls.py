@@ -39,6 +39,8 @@ from students.views import results_add
 from students.views import results_edit
 from students.views import results_delete
 
+from students.views import contact_admin
+
 from students.views import visitor_list
 
 
@@ -69,6 +71,8 @@ urlpatterns = [
     re_path(r'^results/add/$', results_add, name='results_add'),
     re_path(r'^results/(?P<res>\d+)/edit$', results_edit, name="results_edit"),
     re_path(r'^results/(?P<res>\d+)/delete$', results_delete, name="results_delete"),
+
+    re_path(r'^contact-admin/$', contact_admin, name='contact_admin'),
 
     path('admin/', admin.site.urls),   
 ]

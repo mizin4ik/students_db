@@ -4,6 +4,8 @@
 {% url 'visiting' as visitor_url %}
 {% url 'exams' as exams_url %}
 {% url 'results' as results_url %}
+{% url 'contact_admin' as contact_admin_url %}
+
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -22,7 +24,6 @@
 
 </head>
 <body>
-
   <!-- Start Container -->
   <div class="container">
 
@@ -56,6 +57,7 @@
           <li role="presentation" {% if group_url == request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Групи</a></li>
           <li role="presentation" {% if exams_url == request.path %}class="active"{% endif %}><a href="{% url "exams" %}">Іспити</a></li>
           <li role="presentation" {% if results_url == request.path %}class="active"{% endif %}><a href="{% url "results" %}">Результати іспитів</a></li>
+          <li role="presentation" {% if contact_admin_url == request.path %}class="active"{% endif %}><a href="{% url "contact_admin" %}">Контакти</a></li>
         </ul>
       </div>
     </div>

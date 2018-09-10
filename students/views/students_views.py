@@ -89,7 +89,7 @@ def students_add(request):
 
             photo = request.FILES.get('photo')
             if photo:
-                if imghdr.what(photo) != None:
+                if imghdr.what(photo):
                     if photo.size <= 2097152:
                         data['photo'] = photo
                     else:
