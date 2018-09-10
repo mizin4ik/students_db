@@ -17,11 +17,10 @@ Including another URLconf
 from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 
 from students.views import student_list
 from students.views import students_add
-from students.views import students_edit
 from students.views import students_delete
 
 from students.views import groups_list
@@ -43,12 +42,13 @@ from students.views import contact_admin
 
 from students.views import visitor_list
 
+from students.views.students_views import StudentUpdateView
+
 
 urlpatterns = [
     # Students url
     re_path(r'^$', student_list, name="home"),
     re_path(r'^students/add/$', students_add, name='students_add'),
-    re_path(r'^students/(?P<sid>\d+)/edit$', students_edit, name="students_edit"),
     re_path(r'^students/(?P<sid>\d+)/delete$', students_delete, name="students_delete"),
 
     # Groups url
@@ -73,6 +73,8 @@ urlpatterns = [
     re_path(r'^results/(?P<res>\d+)/delete$', results_delete, name="results_delete"),
 
     re_path(r'^contact-admin/$', contact_admin, name='contact_admin'),
+
+    re_path(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
 
     path('admin/', admin.site.urls),   
 ]

@@ -6,8 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.urls import reverse
+from django.views.generic import UpdateView
 from datetime import datetime
-
 
 from ..models import Student, Group
 
@@ -122,8 +122,21 @@ def students_add(request):
         return render(request, 'students/students_add.html', {'groups': Group.objects.all().order_by('title')})
 
 
-def students_edit(request, sid):
-    return HttpResponse('<h1>Edit student %s</h1>' % sid)
+class StudentUpdateView(UpdateView):
+    model = Student
+    template_name = 'students/students_edit.html'
+    fields = ('first_name', 'last_name', 'middle_name', 'birthday', 'photo', 'ticket', 'notes', 'student_group')
+
+    def get_success_url(self):
+        messages.success(self.request, 'Редагування студента успішне!')
+        return reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            messages.info(request, 'Редагування студента скасовано!')
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return super().post(request, *args, **kwargs)
 
 
 def students_delete(request, sid):
