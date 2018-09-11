@@ -19,8 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from students.views import student_list
-from students.views import students_add
+from students.views import student_list, StudentCreateView
 from students.views import students_delete
 
 from students.views import groups_list
@@ -42,13 +41,13 @@ from students.views import contact_admin
 
 from students.views import visitor_list
 
-from students.views.students_views import StudentUpdateView
+from students.views import StudentUpdateView
 
 
 urlpatterns = [
     # Students url
     re_path(r'^$', student_list, name="home"),
-    re_path(r'^students/add/$', students_add, name='students_add'),
+    re_path(r'^students/add/$', StudentCreateView.as_view(), name='students_add'),
     re_path(r'^students/(?P<sid>\d+)/delete$', students_delete, name="students_delete"),
 
     # Groups url
