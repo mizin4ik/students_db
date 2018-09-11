@@ -229,9 +229,6 @@ class StudentUpdateView(UpdateView):
             return super().post(request, *args, **kwargs)
 
 
-def students_delete(request, sid):
-    return HttpResponse('<h1>Delete student %s</h1>' % sid)
-
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/students_confirm-delete.html'
