@@ -21,7 +21,7 @@ class ContactForm(forms.Form):
 
         # twitter bootstrap styles
         self.helper.help_text_inline = True
-        self.helper.html5_required = False
+        self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control-label'
         self.helper.field_class = 'col-sm-10'
 
