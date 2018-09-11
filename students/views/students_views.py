@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.forms import ModelForm
-from django.views.generic import UpdateView, CreateView
+from django.views.generic import UpdateView, CreateView, DeleteView
 
 from ..models import Student, Group
 
@@ -231,3 +231,11 @@ class StudentUpdateView(UpdateView):
 
 def students_delete(request, sid):
     return HttpResponse('<h1>Delete student %s</h1>' % sid)
+
+class StudentDeleteView(DeleteView):
+    model = Student
+    template_name = 'students/students_confirm-delete.html'
+
+    def get_success_url(self):
+        messages.success(self.request, ' Студента успішно видалено!')
+        return reverse('home')

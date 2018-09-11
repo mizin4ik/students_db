@@ -19,13 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from students.views import student_list, StudentCreateView
-from students.views import students_delete
+from students.views import student_list, StudentCreateView, StudentDeleteView, GroupsDeleteView
 
 from students.views import groups_list
 from students.views import groups_add
 from students.views import groups_edit
-from students.views import groups_delete
 
 from students.views import exams_list
 from students.views import exams_add
@@ -48,13 +46,14 @@ urlpatterns = [
     # Students url
     re_path(r'^$', student_list, name="home"),
     re_path(r'^students/add/$', StudentCreateView.as_view(), name='students_add'),
-    re_path(r'^students/(?P<sid>\d+)/delete$', students_delete, name="students_delete"),
+    re_path(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
+    re_path(r'^students/(?P<pk>\d+)/delete/$', StudentDeleteView.as_view(), name='students_delete'),
 
     # Groups url
     re_path(r'^groups/$', groups_list, name="groups"),
     re_path(r'^groups/add/$', groups_add, name='groups_add'),
     re_path(r'^groups/(?P<gid>\d+)/edit$', groups_edit, name="groups_edit"),
-    re_path(r'^groups/(?P<gid>\d+)/delete$', groups_delete, name="groups_delete"),
+    re_path(r'^groups/(?P<pk>\d+)/delete/$', GroupsDeleteView.as_view(), name='groups_delete'),
 
     # Visiting url
     re_path(r'^visiting/$', visitor_list, name="visiting"),
@@ -72,8 +71,6 @@ urlpatterns = [
     re_path(r'^results/(?P<res>\d+)/delete$', results_delete, name="results_delete"),
 
     re_path(r'^contact-admin/$', contact_admin, name='contact_admin'),
-
-    re_path(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
 
     path('admin/', admin.site.urls),   
 ]
