@@ -108,6 +108,13 @@ class GroupUpdateForm(ModelForm):
         self.helper.add_input(Submit('add_button', 'Зберегти', css_class='btn btn-primary'))
         self.helper.add_input(Submit('cancel_button', 'Скасувати', css_class='btn btn-link'))
 
+    def clean_leader(self):
+        leader = self.cleaned_data.get('leader')
+
+        if leader.group is self.instance or not leader.group:
+            return leader
+        self._errors['leader'] = ('Студент не належить даній групі',)
+
 
 class GroupUpdateView(UpdateView):
     model = Group
