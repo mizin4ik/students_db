@@ -1,9 +1,24 @@
 from django.contrib import admin
+from django.forms import ModelForm, ValidationError
 from django.urls import reverse
 
 from .models import Student, Group, Exam, Result
 
 # Register your models here.
+
+
+class StudentFormAdmin(ModelForm):
+
+    def clean_student_group(self):
+        """Check if student is leader in any group.
+
+        If yes, then ensure it's the same as selected group."""
+        # get group where current student is a leader
+        groups = Group.objects.filter(leader=self.instance)
+        if len(groups) > 0 and self.cleaned_data['student_group'] != groups[0]:
+            raise ValidationError('Студент є старостою іншої групи.', code='invalid')
+
+        return self.cleaned_data['student_group']
 
 
 class StudentAdmin(admin.ModelAdmin):
