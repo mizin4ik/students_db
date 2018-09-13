@@ -19,12 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from students.views import student_list, StudentCreateView, StudentDeleteView, GroupsDeleteView
+from students.views import student_list, StudentCreateView, StudentDeleteView, GroupsDeleteView, GroupCreateView, \
+    GroupUpdateView
 
 from students.views import groups_list
-from students.views import groups_add
-from students.views import groups_edit
-
 from students.views import exams_list
 from students.views import exams_add
 from students.views import exams_edit
@@ -51,8 +49,8 @@ urlpatterns = [
 
     # Groups url
     re_path(r'^groups/$', groups_list, name="groups"),
-    re_path(r'^groups/add/$', groups_add, name='groups_add'),
-    re_path(r'^groups/(?P<gid>\d+)/edit$', groups_edit, name="groups_edit"),
+    re_path(r'^groups/add/$', GroupCreateView.as_view(), name='groups_add'),
+    re_path(r'^groups/(?P<pk>\d+)/edit/$', GroupUpdateView.as_view(), name='groups_edit'),
     re_path(r'^groups/(?P<pk>\d+)/delete/$', GroupsDeleteView.as_view(), name='groups_delete'),
 
     # Visiting url
