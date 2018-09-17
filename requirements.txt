@@ -1,4 +1,4 @@
 Django==2.1
 Pillow
-mysqlclient
+psycopg2-binary
 django-crispy-forms==1.7.2
