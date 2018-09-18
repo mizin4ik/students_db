@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 
 from students.views import student_list, StudentCreateView, StudentDeleteView, GroupsDeleteView, GroupCreateView, \
-    GroupUpdateView
+    GroupUpdateView, JournalView
 
 from students.views import groups_list
 from students.views import exams_list
@@ -34,8 +34,6 @@ from students.views import results_edit
 from students.views import results_delete
 
 from students.views import contact_admin
-
-from students.views import visitor_list
 
 from students.views import StudentUpdateView
 
@@ -54,7 +52,7 @@ urlpatterns = [
     re_path(r'^groups/(?P<pk>\d+)/delete/$', GroupsDeleteView.as_view(), name='groups_delete'),
 
     # Visiting url
-    re_path(r'^visiting/$', visitor_list, name="visiting"),
+    re_path(r'^journal/$', JournalView.as_view(), name='journal'),
 
     # Exams url
     re_path(r'^exams/$', exams_list, name="exams"),

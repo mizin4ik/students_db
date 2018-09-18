@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import ModelForm, ValidationError
 from django.urls import reverse
 
-from .models import Student, Group, Exam, Result
+from .models import Student, Group, Exam, Result, MonthJournal
 
 # Register your models here.
 
@@ -51,3 +51,4 @@ admin.site.register(Student, StudentAdmin)
 admin.site.register(Group, GroupAdmin)
 admin.site.register(Exam)
 admin.site.register(Result)
+admin.site.register(MonthJournal)

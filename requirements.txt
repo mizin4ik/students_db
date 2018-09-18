@@ -2,3 +2,4 @@ Django==2.1
 Pillow
 psycopg2-binary
 django-crispy-forms==1.7.2
+python-dateutil
