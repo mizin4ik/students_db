@@ -51,7 +51,7 @@ urlpatterns = [
     re_path(r'^groups/(?P<pk>\d+)/delete/$', GroupsDeleteView.as_view(), name='groups_delete'),
 
     # Visiting url
-    re_path(r'^journal/$', JournalView.as_view(), name='journal'),
+    re_path(r'^journal/(?P<pk>\d+)?/?$', JournalView.as_view(), name='journal'),
 
     # Exams url
     re_path(r'^exams/$', exams_list, name="exams"),

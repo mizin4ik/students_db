@@ -36,7 +36,10 @@ class JournalView(TemplateView):
         context['month_header'] = [{'day': d, 'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
             for d in range(1, number_of_days + 1)]
 
-        queryset = Student.objects.order_by('last_name')
+        if kwargs.get('pk'):
+            queryset = [Student.objects.get(pk=kwargs['pk'])]
+        else:
+            queryset = Student.objects.order_by('last_name')
 
         update_url = reverse('journal')
 
@@ -49,19 +52,19 @@ class JournalView(TemplateView):
                 print(err)
                 journal = None
 
-                days = []
-                for day in range(1, 31):
-                    days.append({
-                        'day': day,
-                        'present': journal and getattr(journal, 'present_day%d' % day, False) or False,
-                        'date': date(myear, mmonth, day).strftime('%Y-%m-%d'), })
+            days = []
+            for day in range(1, number_of_days+1):
+                days.append({
+                    'day': day,
+                    'present': journal and getattr(journal, 'present_day{0}'.format(day), False) or False,
+                    'date': date(myear, mmonth, day).strftime('%Y-%m-%d'), })
 
-                students.append({
-                    'fullname': ' % s % s' % (student.last_name, student.first_name),
-                    'days': days,
-                    'id': student.id,
-                    'update_url': update_url,
-                })
+            students.append({
+                'fullname': ' % s % s' % (student.last_name, student.first_name),
+                'days': days,
+                'id': student.id,
+                'update_url': update_url,
+            })
 
         context = paginate(students, 10, self.request, context, var_name='students')
         return context
@@ -71,12 +74,12 @@ class JournalView(TemplateView):
 
         current_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
         month = date(current_date.year, current_date.month, 1)
-        present = data['present'] and True or False
+        present = bool(data['present'])
         student = Student.objects.get(pk=data['pk'])
 
         journal = MonthJournal.objects.get_or_create(student=student, date=month)[0]
 
-        setattr(journal, 'present_day % d' % current_date.day, present)
+        setattr(journal, 'present_day{0}'.format(current_date.day), present)
         journal.save()
 
         return JsonResponse({'status': 'success'})
