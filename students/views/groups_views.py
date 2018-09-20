@@ -4,40 +4,35 @@ from crispy_forms.layout import Submit
 from django.contrib import messages
 from django.db.models import ProtectedError
 from django.forms import ModelForm
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import DeleteView, CreateView, UpdateView
+from django.views.generic import DeleteView, CreateView, UpdateView, TemplateView
 
+from students.util import paginate
 from ..models import Group
 
 
-def groups_list(request):
-    groups = Group.objects.all()
+class GroupsList(TemplateView):
+    template_name = 'students/group.html'
 
-    # try to order groups list
-    order_by = request.GET.get('order_by', '')
-    if order_by in ('title', 'leader', 'id'):
-        if order_by == 'leader':
-            order_by = 'leader__first_name'
-        groups = groups.order_by(order_by)
-        if request.GET.get('reverse', '') == '1':
-            groups = groups.reverse()
-    else:
-        groups = groups.order_by('title')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    # paginate groups
-    paginator = Paginator(groups, 3)
-    page = request.GET.get('page')
-    try:
-        groups = paginator.page(page)
-    except PageNotAnInteger:
-        groups = paginator.page(1)
-    except EmptyPage:
-        groups = paginator.page(paginator.num_pages)
+        groups = Group.objects.all()
 
-    return render(request, 'students/group.html', {'groups': groups})
+        # try to order groups list
+        order_by = self.request.GET.get('order_by', '')
+        if order_by in ('title', 'leader', 'id'):
+            if order_by == 'leader':
+                order_by = 'leader__first_name'
+            groups = groups.order_by(order_by)
+            if self.request.GET.get('reverse', '') == '1':
+                groups = groups.reverse()
+        else:
+            groups = groups.order_by('title')
+
+        context = paginate(groups, 10, self.request, context, var_name='groups')
+        return context
 
 
 class GroupCreateForm(ModelForm):

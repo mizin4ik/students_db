@@ -17,12 +17,11 @@ Including another URLconf
 from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import path, re_path
 
-from students.views import student_list, StudentCreateView, StudentDeleteView, GroupsDeleteView, GroupCreateView, \
-    GroupUpdateView, JournalView
+from students.views import StudentsList, StudentCreateView, StudentDeleteView, GroupsDeleteView, GroupCreateView, \
+    GroupUpdateView, JournalView, GroupsList
 
-from students.views import groups_list
 from students.views import exams_list
 from students.views import exams_add
 from students.views import exams_edit
@@ -40,13 +39,13 @@ from students.views import StudentUpdateView
 
 urlpatterns = [
     # Students url
-    re_path(r'^$', student_list, name="home"),
+    re_path(r'^$', StudentsList.as_view(), name="home"),
     re_path(r'^students/add/$', StudentCreateView.as_view(), name='students_add'),
     re_path(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
     re_path(r'^students/(?P<pk>\d+)/delete/$', StudentDeleteView.as_view(), name='students_delete'),
 
     # Groups url
-    re_path(r'^groups/$', groups_list, name="groups"),
+    re_path(r'^groups/$', GroupsList.as_view(), name="groups"),
     re_path(r'^groups/add/$', GroupCreateView.as_view(), name='groups_add'),
     re_path(r'^groups/(?P<pk>\d+)/edit/$', GroupUpdateView.as_view(), name='groups_edit'),
     re_path(r'^groups/(?P<pk>\d+)/delete/$', GroupsDeleteView.as_view(), name='groups_delete'),

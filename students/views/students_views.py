@@ -1,47 +1,39 @@
 # -*- coding: utf-8 -*-
 import imghdr
 
-from datetime import datetime
 
-from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.forms import ModelForm
-from django.views.generic import UpdateView, CreateView, DeleteView
+from django.views.generic import UpdateView, CreateView, DeleteView, TemplateView
 
-from ..models import Student, Group
+from students.util import paginate
+from ..models import Student
 
 
 # Views for Students
 
-def student_list(request):
-    students = Student.objects.all()
+class StudentsList(TemplateView):
+    template_name = 'students/students_list.html'
 
-    #try to order students list
-    order_by = request.GET.get('order_by', '')
-    if order_by in ('last_name', 'first_name', 'ticket', 'id'):
-        students = students.order_by(order_by)
-        if request.GET.get('reverse', '') == '1':
-            students = students.reverse()
-    else:
-        students = students.order_by('last_name')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        students = Student.objects.all()
 
-    # paginate students
-    paginator = Paginator(students, 3)
-    page = request.GET.get('page')
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        students = paginator.page(1)
-    except EmptyPage:
-        students = paginator.page(paginator.num_pages)
+        # try to order students list
+        order_by = self.request.GET.get('order_by', '')
+        if order_by in ('last_name', 'first_name', 'ticket', 'id'):
+            students = students.order_by(order_by)
+            if self.request.GET.get('reverse', '') == '1':
+                students = students.reverse()
+        else:
+            students = students.order_by('last_name')
 
-    return render(request, 'students/students_list.html', {'students': students})
+        context = paginate(students, 10, self.request, context, var_name='students')
+        return context
 
 
 class StudentUpdateForm(ModelForm):
