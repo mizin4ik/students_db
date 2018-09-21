@@ -2,12 +2,13 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.contrib import messages
+from django.db.models import ProtectedError
 from django.forms import ModelForm
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 
 from students.util import paginate
 from ..models import Exam
@@ -120,5 +121,21 @@ class ExamUpdateView(UpdateView):
             return super().post(request, *args, **kwargs)
 
 
-def exams_delete(request, exe):
-    return HttpResponse('<h1>Delete exams {0}</h1>'.format(exe))
+class ExamDeleteView(DeleteView):
+    model = Exam
+    template_name = 'students/exams_confirm-delete.html'
+
+    def get_success_url(self):
+        return reverse('exams')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        try:
+            self.object.delete()
+            messages.success(self.request, 'Іспит успішно видалено!')
+        except ProtectedError:
+            messages.error(self.request, 'fffff')
+            return HttpResponseRedirect(reverse('groups'))
+
+        return HttpResponseRedirect(success_url)
