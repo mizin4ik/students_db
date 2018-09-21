@@ -3,33 +3,31 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import TemplateView
 
+from students.util import paginate
 from ..models import Exam
 
 
-def exams_list(request):
-    exams = Exam.objects.all()
+class ExamsList(TemplateView):
+    template_name = 'students/exams.html'
 
-    # try to order exams list
-    order_by = request.GET.get('order_by', '')
-    if order_by in ('exams_name', 'exams_date', 'professor', 'id'):
-        exams = exams.order_by(order_by)
-        if request.GET.get('reverse', '') == '1':
-            exams = exams.reverse()
-    else:
-        exams = exams.order_by('exams_date')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        exams = Exam.objects.all()
 
-    # paginate exams
-    paginator = Paginator(exams, 3)
-    page = request.GET.get('page')
-    try:
-        exams = paginator.page(page)
-    except PageNotAnInteger:
-        exams = paginator.page(1)
-    except EmptyPage:
-        exams = paginator.page(paginator.num_pages)
+        # try to order exams list
+        order_by = self.request.GET.get('order_by', '')
+        if order_by in ('exams_name', 'exams_date', 'professor', 'id'):
+            exams = exams.order_by(order_by)
+            if self.request.GET.get('reverse', '') == '1':
+                exams = exams.reverse()
+        else:
+            exams = exams.order_by('exams_date')
 
-    return render(request, 'students/exams.html', {'exams': exams})
+        # paginate exams
+        context = paginate(exams, 10, self.request, context, var_name='exams')
+        return context
 
 
 def exams_add(request):

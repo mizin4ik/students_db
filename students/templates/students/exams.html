@@ -77,6 +77,8 @@
   </tbody>
 </table>
 <!-- End Exams Listing -->
-{% include './_pagination.html' %}
+{% with object_list=exams %}
+  {% include "students/pagination.html" %}
+{% endwith %}
 
 {% endblock content %}
