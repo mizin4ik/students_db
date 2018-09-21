@@ -26,6 +26,8 @@ class Result(models.Model):
 
     result = models.IntegerField(
         verbose_name='Результати іспиту',
-        null=True
-    )
+        null=True)
+
+    def __str__(self):
+        return self.exam.exams_name
 

@@ -136,6 +136,6 @@ class ExamDeleteView(DeleteView):
             messages.success(self.request, 'Іспит успішно видалено!')
         except ProtectedError:
             messages.error(self.request, 'fffff')
-            return HttpResponseRedirect(reverse('groups'))
+            return HttpResponseRedirect(reverse('results'))
 
         return HttpResponseRedirect(success_url)
