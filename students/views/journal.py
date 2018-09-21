@@ -5,7 +5,7 @@ from calendar import monthrange, weekday, day_abbr
 from django.views.generic import TemplateView
 
 from students.models import MonthJournal, Student
-from ..util import paginate
+from ..util import paginate, get_current_group
 
 from django.http import JsonResponse
 
@@ -14,6 +14,7 @@ class JournalView(TemplateView):
     template_name = 'students/journal.html'
 
     def get_context_data(self, **kwargs):
+        current_group = get_current_group(self.request)
         context = super().get_context_data(**kwargs)
 
         if self.request.GET.get('month'):
@@ -38,6 +39,8 @@ class JournalView(TemplateView):
 
         if kwargs.get('pk'):
             queryset = [Student.objects.get(pk=kwargs['pk'])]
+        elif current_group:
+            queryset = Student.objects.filter(student_group=current_group)
         else:
             queryset = Student.objects.order_by('last_name')
 
