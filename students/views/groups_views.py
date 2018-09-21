@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import DeleteView, CreateView, UpdateView, TemplateView
 
-from students.util import paginate
+from students.util import paginate, get_current_group
 from ..models import Group
 
 
@@ -17,8 +17,11 @@ class GroupsList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        groups = Group.objects.all()
+        current_group = get_current_group(self.request)
+        if current_group:
+            groups = Group.objects.filter(title=current_group)
+        else:
+            groups = Group.objects.all()
 
         # try to order groups list
         order_by = self.request.GET.get('order_by', '')

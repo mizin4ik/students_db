@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.forms import ModelForm
 from django.views.generic import UpdateView, CreateView, DeleteView, TemplateView
 
-from students.util import paginate
+from students.util import paginate, get_current_group
 from ..models import Student
 
 
@@ -21,7 +21,11 @@ class StudentsList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        students = Student.objects.all()
+        current_group = get_current_group(self.request)
+        if current_group:
+            students = Student.objects.filter(student_group=current_group)
+        else:
+            students = Student.objects.all()
 
         # try to order students list
         order_by = self.request.GET.get('order_by', '')
