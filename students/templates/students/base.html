@@ -39,8 +39,9 @@
         <strong>Група:</strong>
         <select>
           <option value="">Усі Студенти</option>
-          <option value="">Мтм-21, Вікторія Кіт</option>
-          <option value="">Мтм-22, Вікторія Кіт</option>
+          {% for group in GROUPS %}
+          <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>{{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}</option>
+          {% endfor %}
         </select>
       </div>
       {% endblock %}
