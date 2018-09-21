@@ -59,7 +59,7 @@
       <td><a href="{% url "exams_edit" exam.pk %}">{{ exam.exams_name }}</a></td>
       <td>{{ exam.exams_date }}</td>
       <td>{{ exam.professor }}</td>
-      <td>{{ exam.group_set.all|join:', ' }}</td>
+      <td>{{ exam.exams_group.all|join:', ' }}</td>
       <td>
         <div class="btn-group">
           <button type="button" class="btn btn-default dropdown-toggle"

@@ -24,9 +24,5 @@ class Group(models.Model):
         blank=True,
         verbose_name='Додаткові нотатки')
 
-    exam = models.ManyToManyField(
-        'Exam',
-        blank=True,)
-
     def __str__(self):
         return self.title

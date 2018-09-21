@@ -25,5 +25,9 @@ class Exam(models.Model):
         blank=False,
         verbose_name='Прізвище')
 
+    exams_group = models.ManyToManyField(
+        'Group',
+        blank=True,)
+
     def __str__(self):
         return '{0}'.format(self.exams_name)
