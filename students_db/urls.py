@@ -13,16 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
 from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path
 
 from students.views import StudentsList, StudentCreateView, StudentDeleteView, GroupsDeleteView, GroupCreateView, \
-    GroupUpdateView, JournalView, GroupsList, ExamsList, ExamCreateView, ExamUpdateView, ExamDeleteView
+    GroupUpdateView, JournalView, GroupsList, ExamsList, ExamCreateView, ExamUpdateView, ExamDeleteView, ResultList
 
-from students.views import results_list
 from students.views import results_add
 from students.views import results_edit
 from students.views import results_delete
@@ -55,7 +53,7 @@ urlpatterns = [
     re_path(r'^exams/(?P<pk>\d+)/delete/$', ExamDeleteView.as_view(), name="exams_delete"),
 
     # Results url
-    re_path(r'^results/$', results_list, name="results"),
+    re_path(r'^results/$', ResultList.as_view(), name="results"),
     re_path(r'^results/add/$', results_add, name='results_add'),
     re_path(r'^results/(?P<res>\d+)/edit$', results_edit, name="results_edit"),
     re_path(r'^results/(?P<res>\d+)/delete$', results_delete, name="results_delete"),

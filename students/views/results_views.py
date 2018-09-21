@@ -3,33 +3,31 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import TemplateView
 
+from students.util import paginate
 from ..models import Result
 
 
-def results_list(request):
-    results = Result.objects.all()
+class ResultList(TemplateView):
+    template_name = 'students/exam_result.html'
 
-    # try to order results list
-    order_by = request.GET.get('order_by', '')
-    if order_by in ('result', 'id'):
-        results = results.order_by(order_by)
-        if request.GET.get('reverse', '') == '1':
-            results = results.reverse()
-    else:
-        results = results.order_by('result')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        results = Result.objects.all()
 
-    # paginate result
-    paginator = Paginator(results, 3)
-    page = request.GET.get('page')
-    try:
-        results = paginator.page(page)
-    except PageNotAnInteger:
-        results = paginator.page(1)
-    except EmptyPage:
-        results = paginator.page(paginator.num_pages)
+        # try to order results list
+        order_by = self.request.GET.get('order_by', '')
+        if order_by in ('result', 'id'):
+            results = results.order_by(order_by)
+            if self.request.GET.get('reverse', '') == '1':
+                results = results.reverse()
+        else:
+            results = results.order_by('result')
 
-    return render(request, 'students/exam_result.html', {'results': results})
+        # paginate result
+        context = paginate(results, 10, self.request, context, var_name='results')
+        return context
 
 
 def results_add(request):
