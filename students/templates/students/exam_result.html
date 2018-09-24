@@ -46,7 +46,7 @@
       <td>{{ result.pk }}</td>
       <td>{{ result.student }}</td>
       <td>{{ result.exam.exams_name }}</td>
-      <td>{{ result.exam.exams_name }}</td>
+      <td>{{ result.result }}</td>
       <td>{{ result.student.student_group}}</td>
       <td>
         <div class="btn-group">
@@ -55,7 +55,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url "results_edit" result.pk %}">Редагувати</a></li>
+            <li><a href="{% url "results_edit" result.pk %}" class="edit-form-link">Редагувати</a></li>
             <li><a href="{% url "results_delete" result.pk %}">Видалити</a></li>
           </ul>
         </div>

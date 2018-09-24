@@ -56,7 +56,7 @@
     {%  for exam in exams %}
     <tr>
       <td>{{ exam.pk }}</td>
-      <td><a href="{% url "exams_edit" exam.pk %}">{{ exam.exams_name }}</a></td>
+      <td><a href="{% url "exams_edit" exam.pk %}" class="edit-form-link">{{ exam.exams_name }}</a></td>
       <td>{{ exam.exams_date }}</td>
       <td>{{ exam.professor }}</td>
       <td>{{ exam.exams_group.all|join:', ' }}</td>
@@ -67,7 +67,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url "exams_edit" exam.pk %}">Редагувати</a></li>
+            <li><a href="{% url "exams_edit" exam.pk %}" class="edit-form-link">Редагувати</a></li>
             <li><a href="{% url "exams_delete" exam.pk %}">Видалити</a></li>
           </ul>
         </div>

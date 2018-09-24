@@ -27,7 +27,6 @@ function initJournal () {
     });
 }
 
-
 function initGroupSelector() {
   // look up select element with groups and attach our even handler
   // on field "change" event
@@ -59,8 +58,8 @@ function initDateFields() {
     });
 }
 
-function initEditStudentPage() {
-  $('a.student-edit-form-link').click(function(event){
+function initEditPage() {
+  $('a.edit-form-link').click(function(event){
     var link = $(this);
     $.ajax({
       'url': link.attr('href'),
@@ -68,7 +67,7 @@ function initEditStudentPage() {
       'type': 'get',
       'success': function(data, status, xhr){
         // check if we got successfull response from the server
-        if (status != 'success') {
+        if (status !== 'success') {
           alert('Помилка на сервері. Спробуйте будь-ласка пізніше.');
           return false;
         }
@@ -80,7 +79,7 @@ function initEditStudentPage() {
         modal.find('.modal-body').html(form);
 
         // init our edit form
-        initEditStudentForm(form, modal);
+        initEditForm(form, modal);
 
         // setup and show modal window finally
         modal.modal({
@@ -99,7 +98,7 @@ function initEditStudentPage() {
   });
 }
 
-function initEditStudentForm(form, modal) {
+function initEditForm(form, modal) {
   // attach datepicker
   initDateFields();
 
@@ -112,7 +111,8 @@ function initEditStudentForm(form, modal) {
   // make form work in AJAX mode
   form.ajaxForm({
     'dataType': 'html',
-    'error': function(){
+    'error': function(xhr, ajaxOptions, thrownError){
+        console.log(xhr, ajaxOptions, thrownError);
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше.');
         return false;
     },
@@ -127,10 +127,10 @@ function initEditStudentForm(form, modal) {
         modal.find('.modal-body').append(newform);
 
         // initialize form fields and buttons
-        initEditStudentForm(newform, modal);
+        initEditForm(newform, modal);
       } else {
         // if no form, it means success and we need to reload page
-        // to get updated students list;
+        // to get updated list;
         // reload after 2 seconds, so that user can read success message
         setTimeout(function(){location.reload(true);}, 500);
       }
@@ -143,5 +143,5 @@ $(document).ready(function(){
   initJournal();
   initGroupSelector();
   initDateFields();
-  initEditStudentPage();
+  initEditPage();
 });
