@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 
-from students.util import paginate
+from students.util import paginate, get_current_group
 from ..models import Exam
 
 
@@ -19,7 +19,11 @@ class ExamsList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        exams = Exam.objects.all()
+        current_group = get_current_group(self.request)
+        if current_group:
+            exams = Exam.objects.filter(exams_group=current_group)
+        else:
+            exams = Exam.objects.all()
 
         # try to order exams list
         order_by = self.request.GET.get('order_by', '')

@@ -4,9 +4,7 @@ from crispy_forms.layout import Submit
 from django.contrib import messages
 from django.db.models import ProtectedError
 from django.forms import ModelForm
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 

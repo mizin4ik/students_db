@@ -35,6 +35,7 @@
           {% endif %}
           </a>
       </th>
+      <th>Група</th>
       <th>Дії</th>
     </tr>
   </thead>
@@ -45,7 +46,8 @@
       <td>{{ result.pk }}</td>
       <td>{{ result.student }}</td>
       <td>{{ result.exam.exams_name }}</td>
-      <td>{{ result.result }}</td>
+      <td>{{ result.exam.exams_name }}</td>
+      <td>{{ result.student.student_group}}</td>
       <td>
         <div class="btn-group">
           <button type="button" class="btn btn-default dropdown-toggle"
