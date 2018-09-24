@@ -109,7 +109,7 @@ class GroupUpdateForm(ModelForm):
     def clean_leader(self):
         leader = self.cleaned_data.get('leader')
 
-        if leader.group is self.instance or not leader.group:
+        if leader.student_group.pk == self.instance.pk or not leader.student_group:
             return leader
         self._errors['leader'] = ('Студент не належить даній групі',)
 
